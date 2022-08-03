@@ -1,9 +1,11 @@
 package com.sparta.spring2.servic;
 
 import com.sparta.spring2.dto.SignupRequestDto;
+import com.sparta.spring2.model.User;
 import com.sparta.spring2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
