@@ -6,6 +6,7 @@ import com.sparta.springcore.dto.ResponseDto;
 import com.sparta.springcore.dto.SignupRequestDto;
 import com.sparta.springcore.model.User;
 import com.sparta.springcore.repository.UserRepository;
+import com.sparta.springcore.service.LoginConfirmService;
 import com.sparta.springcore.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final LoginConfirmService loginConfirmService;
 
     //회원가입 post API
     @PostMapping("/api/member/signup")
@@ -28,14 +30,10 @@ public class UserController {
 
     }
 
-    //로그인 get api
+    //로그인 post api
 
-//    @PostMapping("/api/member/login")
-//    public ResponseDto<?> loginUser(@RequestBody LoginRequestDto requestDto) {
-//        if(requestDto.getPassword().equals(requestDto.getPasswordConfirm())){
-//            return ResponseDto.success(userService.registerUser(requestDto));
-//        }
-//        else {return ResponseDto.fail("PASSWORD_MISMATCH","비밀번호가 일치하지 않습니다.");}
-//
-//    }
+    @PostMapping("/api/member/login")
+    public Boolean loginUser(@RequestBody LoginRequestDto requestDto) {
+        return loginConfirmService.loginConfirm(requestDto);
+    }
 }
