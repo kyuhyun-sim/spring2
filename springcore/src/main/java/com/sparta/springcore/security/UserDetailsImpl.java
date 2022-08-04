@@ -43,7 +43,7 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
-    }//비밀번호 마료 여부, true는 만료안됨
+    }//비밀번호 만료 여부, true는 만료안됨
 
     @Override
     public boolean isEnabled() {
