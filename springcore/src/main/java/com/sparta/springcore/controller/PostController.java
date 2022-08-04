@@ -19,7 +19,7 @@ public class PostController {
 
     @PostMapping("/api/auth/post")
     public ResponseDto<?> postCreate(@RequestBody PostCreatRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        System.out.println("나는"+userDetails.getUser());
+//        System.out.println("나는"+userDetails.getUser());
         Long userId = userDetails.getUser().getId();
 
         return ResponseDto.success(postCreatService.createPost(requestDto, userId));

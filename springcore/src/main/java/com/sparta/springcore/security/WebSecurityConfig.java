@@ -1,5 +1,7 @@
 package com.sparta.springcore.security;
 
+import com.sparta.springcore.jwt.JwtAuthenticationFilter;
+import com.sparta.springcore.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +18,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebSecurity(debug = true) // 스프링 Security 지원을 가능하게 함
 @EnableGlobalMethodSecurity(securedEnabled = true) // @Secured 어노테이션 활성화
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+public class WebSecurityConfig implements WebMvcConfigurer {
+
+    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAccessDeniedHander jwtAccessDeniedHandler;
 
     @Bean
     public BCryptPasswordEncoder encodePassword() {
@@ -42,7 +48,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                         // css 폴더를 login 없이 허용
                         .antMatchers("/css/**").permitAll()
                         // 회원 관리 처리 API 전부를 login 없이 허용
-                        .antMatchers("/api/**").permitAll()
+                        .antMatchers("/api/member/**").permitAll()
+                        .antMatchers("/api/post/**").permitAll()
+                        .antMatchers("/api/comment/**").permitAll()
                         // 어떤 요청이든 '인증'
                         .anyRequest().authenticated()
                 )
