@@ -38,18 +38,13 @@ public class UserService {
             throw new IllegalArgumentException("중복된 사용자 ID 가 존재합니다.");
         }
 
-
-// 패스워드 암호화
-        String password = passwordEncoder.encode(requestDto.getPassword());
-        User user = new User(username, password);
-        return userRepository.save(user);
-
-
-
+        if (requestDto.getPassword().equals(requestDto.getPasswordConfirm())) {
+            // 패스워드 암호화
+            String password = passwordEncoder.encode(requestDto.getPassword());
+            User user = new User(username, password);
+            return userRepository.save(user);
+        }else{
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
     }
-    public User registerUserView(){
-        User user = (User) userRepository.findAllByOrderByCreatedAtDesc();
-        return user;
-    }
-
 }
